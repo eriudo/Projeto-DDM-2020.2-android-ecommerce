@@ -1,14 +1,20 @@
 package br.edu.ufrn.android_ecommerce
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.RelativeLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import io.paperdb.Paper
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Paper.init(this)
+
         setContentView(R.layout.activity_main)
 
         setSupportActionBar(findViewById(R.id.toolBar))
@@ -32,12 +40,23 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<RecyclerView>(R.id.products_recyclerView).layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
+        findViewById<TextView>(R.id.cart_size).text = ShoppingCart.getShoppingCartSize().toString()
+
         getProducts()
+
+        findViewById<RelativeLayout>(R.id.showCart).setOnClickListener{
+            startActivity(Intent(this, ShoppingCartActivity::class.java))
+        }
+
+        swipeRefreshLayout.setOnRefreshListener {
+            getProducts()
+        }
 
     }
 
     fun getProducts() {
-        apiService.getProducts().enqueue(object : retrofit2.Callback<List<Product>> {
+
+        apiService.getProducts().enqueue(object : Callback<List<Product>> {
             override fun onFailure(call: Call<List<Product>>, t: Throwable) {
                 print(t.message)
                 Log.d("Data error", t.message)

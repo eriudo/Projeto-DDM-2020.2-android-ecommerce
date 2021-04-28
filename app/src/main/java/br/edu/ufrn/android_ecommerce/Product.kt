@@ -6,6 +6,9 @@ data class Product (
         @SerializedName("description")
         var description: String? = null,
 
+        @SerializedName("id")
+        var id: Int? = null,
+
         @SerializedName("name")
         var name: String? = null,
 
