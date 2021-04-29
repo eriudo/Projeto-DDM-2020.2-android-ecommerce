@@ -1,6 +1,7 @@
 package br.edu.ufrn.android_ecommerce
 
 import android.content.Context
+import android.util.Log
 import io.paperdb.Paper
 
 class ShoppingCart {

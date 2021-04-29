@@ -4,14 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.RelativeLayout
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
 import io.paperdb.Paper
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,10 +23,14 @@ class MainActivity : AppCompatActivity() {
 
     private var products = listOf<Product>()
 
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         Paper.init(this)
+        auth = FirebaseAuth.getInstance()
+
+        val currentUser = auth.currentUser
 
         setContentView(R.layout.activity_main)
 
@@ -46,6 +49,16 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<RelativeLayout>(R.id.showCart).setOnClickListener{
             startActivity(Intent(this, ShoppingCartActivity::class.java))
+        }
+
+        if (currentUser == null) {
+            findViewById<ImageButton>(R.id.userButton).setOnClickListener{
+                startActivity(Intent(this, LoginActivity::class.java))
+            }
+        } else {
+            findViewById<ImageButton>(R.id.userButton).setOnClickListener{
+                startActivity(Intent(this, UserMenuActivity::class.java))
+            }
         }
 
         swipeRefreshLayout.setOnRefreshListener {

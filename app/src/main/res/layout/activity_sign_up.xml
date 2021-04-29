@@ -33,6 +33,33 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Crie sua conta"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="22dp"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:focusable="true"
+                android:focusableInTouchMode="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/username"
+                    android:paddingBottom="15dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
@@ -46,8 +73,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
-                    android:paddingBottom="15dp"
-                    android:hint="@string/email_placeholder"/>
+                    android:hint="@string/email_placeholder"
+                    android:paddingBottom="15dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,21 +96,21 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/buttonLogin"
+                android:id="@+id/buttonSignUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="7dp"
                 android:elevation="4dp"
-                android:text="@string/login"
+                android:text="Cadastrar"
                 android:textAllCaps="false" />
 
             <TextView
-                android:id="@+id/textViewSignUp"
+                android:id="@+id/textViewSignIn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="@string/register"
+                android:text="Conecte-se"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"/>
 
         </LinearLayout>
